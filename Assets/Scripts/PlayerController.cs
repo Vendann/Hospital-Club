@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
 	public float speed = 4f;
 	public float rotationSpeed = 10f;
 	private Vector3 directionVector;
+	public int damage = 5;
 	
     void Start()
     {
@@ -35,5 +36,14 @@ public class PlayerController : MonoBehaviour
 	{
 		rb.velocity = Vector3.ClampMagnitude(directionVector, 1) * speed;
 		rb.angularVelocity = Vector3.zero;
+	}
+
+    private void OnTriggerStay(Collider other)
+    {
+		if (Input.GetMouseButton(0))
+		{
+			if (other.tag == "Enemy")
+				other.GetComponent<Enemy>().TakeDamage(damage);
+		}
 	}
 }
